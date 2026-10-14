@@ -6,6 +6,7 @@ import { TiposTransaccionModule } from './tipos-transaccion/tipos-transaccion.mo
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { CuentasModule } from './cuentas/cuentas.module';
 import { TransaccionesModule } from './transacciones/transacciones.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TransaccionesModule } from './transacciones/transacciones.module';
     DatabaseModule,
     RolesModule,
     TiposTransaccionModule,
+    AuthModule,
     UsuariosModule,
     CuentasModule,
     TransaccionesModule,
