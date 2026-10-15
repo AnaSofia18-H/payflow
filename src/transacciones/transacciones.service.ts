@@ -1,4 +1,5 @@
 
+
 import {
   BadRequestException,
   ForbiddenException,
@@ -36,6 +37,7 @@ export class TransaccionesService {
 
   async depositar(dto: DepositoDto) {
     const tipo = await this.tiposService.findByNombre(TIPO_DEPOSITO);
+
     return this.dataSource.transaction(async (manager) => {
       const cuenta = await this.bloquearCuentaPorId(manager, dto.cuentaId);
 
@@ -62,6 +64,7 @@ export class TransaccionesService {
 
   async retirar(usuario: UsuarioToken, dto: RetiroDto) {
     const tipo = await this.tiposService.findByNombre(TIPO_RETIRO);
+
     return this.dataSource.transaction(async (manager) => {
       const cuenta = await this.bloquearCuentaDeUsuario(manager, usuario.id);
 
@@ -94,6 +97,7 @@ export class TransaccionesService {
 
   async transferir(usuario: UsuarioToken, dto: TransferenciaDto) {
     const tipo = await this.tiposService.findByNombre(TIPO_TRANSFERENCIA);
+
     return this.dataSource.transaction(async (manager) => {
       const cuentaUsuario = await manager.findOne(Cuenta, {
         where: { usuario: { id: usuario.id } },
@@ -138,6 +142,8 @@ export class TransaccionesService {
       destino.saldo = aPesos(aCentavos(destino.saldo) + aCentavos(dto.monto));
 
       await this.guardarSaldo(manager, origen);
+
+    
       await this.guardarSaldo(manager, destino);
 
       const transaccion = await manager.save(
